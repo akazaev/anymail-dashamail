@@ -10,9 +10,18 @@ from django.core.mail import EmailMessage, EmailMultiAlternatives, get_connectio
 from django.utils import timezone
 
 
-PNG_1X1_BASE64 = (
-    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8"
-    "/w8AAgMBgJ8X2wAAAABJRU5ErkJggg=="
+PNG_BASE64 = (
+    "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAIAAADTED8xAAADMElEQVR4nOzVwQnAIBQFQYXff81RUkQCOyDj1YOPnbXWPmeTRef+/3O/OyBjzh3CD9"
+    "5BfqICMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0C"
+    "MK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK"
+    "0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0C"
+    "MK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK"
+    "0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0C"
+    "MK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK"
+    "0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0C"
+    "MK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK"
+    "0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMK0CMO0TAAD"
+    "//2Anhf4QtqobAAAAAElFTkSuQmCC"
 )
 
 
@@ -87,14 +96,14 @@ def send_attachments_inline(connection, to_email, from_email):
     msg.attach("test.txt", b"attachment payload", "text/plain")
     msg.attach(
         "pixel.png",
-        base64.b64decode(PNG_1X1_BASE64),
+        base64.b64decode(PNG_BASE64),
         "image/png",
     )
 
     # Build inline attachment compatible with Django email API
     from email.mime.image import MIMEImage
 
-    inline = MIMEImage(base64.b64decode(PNG_1X1_BASE64), _subtype="png")
+    inline = MIMEImage(base64.b64decode(PNG_BASE64), _subtype="png")
     inline.add_header("Content-ID", "<test-inline-image>")
     inline.add_header("Content-Disposition", "inline", filename="inline.png")
     msg.attach(inline)
@@ -106,14 +115,14 @@ def send_attachments_inline(connection, to_email, from_email):
 def send_merge_and_template_data(connection, to_email, from_email):
     msg = EmailMultiAlternatives(
         subject="[DashaMail Test] merge_data + template_data",
-        body="Hi {{name}}",
+        body="Hi %NAME%",
         from_email=from_email,
         to=[to_email],
         connection=connection,
     )
-    msg.attach_alternative("<p>Hi {{name}}</p>", "text/html")
+    msg.attach_alternative("<p>Hi %NAME%</p>", "text/html")
 
-    msg.merge_data = {to_email: {"name": "Test User", "order_id": "A-100"}}
+    msg.merge_data = {to_email: {"%NAME%": "Test User", "%ORDER_ID%": "A-100"}}
     msg.merge_global_data = {"support_email": from_email}
 
     msg.send(fail_silently=False)
