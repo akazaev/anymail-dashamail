@@ -12,5 +12,10 @@ dependencies = [
   "django-anymail>=11.0",
 ]
 
+[project.optional-dependencies]
+test = [
+  "pytest>=8.0",
+]
+
 [tool.setuptools]
 packages = ["anymail_dashamail"]

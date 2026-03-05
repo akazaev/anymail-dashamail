@@ -136,6 +136,13 @@ Quick local check:
 python -m py_compile anymail_dashamail/backend.py scripts/send_test_email.py
 ```
 
+Run tests with pytest:
+
+```bash
+python -m pip install -e ".[test]"
+pytest -q
+```
+
 ## Release notes
 
 Project history is tracked in `CHANGELOG.md`.
