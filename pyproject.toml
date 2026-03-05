@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "anymail-dashamail"
+version = "0.1.0"
+description = "DashaMail transactional backend for django-anymail"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+  "django-anymail>=11.0",
+]
+
+[tool.setuptools]
+packages = ["anymail_dashamail"]
