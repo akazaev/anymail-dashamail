@@ -29,12 +29,6 @@ From local path:
 pip install -e /path/to/anymail-dashamail
 ```
 
-If this repository is cloned at `/home/aleksei/Projects/dashamail/anymail-dashamail`:
-
-```bash
-pip install -e /home/aleksei/Projects/dashamail/anymail-dashamail
-```
-
 ## Django configuration
 
 Use the backend in `settings.py`:
@@ -95,7 +89,7 @@ msg.send()
 
 A ready-to-use script is provided in:
 
-- `scripts/send_test_email.py`
+- `send_test_email.py`
 
 It sends several real messages to verify key functionality:
 
