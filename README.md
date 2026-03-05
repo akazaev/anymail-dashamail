@@ -1,6 +1,6 @@
 # anymail-dashamail
 
-DashaMail transactional email backend for [`django-anymail`](https://github.com/anymail/django-anymail).
+[`DashaMail`](https://dashamail.ru/) transactional email backend for [`django-anymail`](https://github.com/anymail/django-anymail).
 
 This package lets you keep the standard Django/Anymail sending API while routing messages through the DashaMail Transactional API.
 
