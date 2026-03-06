@@ -143,10 +143,6 @@ python -m pip install -e ".[test]"
 pytest -q
 ```
 
-## Release notes
-
-Project history is tracked in `CHANGELOG.md`.
-
 ## Contributing
 
 Issues and pull requests are welcome.
